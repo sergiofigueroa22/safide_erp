@@ -55,6 +55,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
     }
 
     @Override
+    @Transactional
     public InveProdCata update(Integer id, InveProdCata inveprocata) {
         try {
             if (!iInveProdCataCrudRepository.existsById(id)) {
