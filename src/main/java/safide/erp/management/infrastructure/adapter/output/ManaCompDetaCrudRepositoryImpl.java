@@ -44,14 +44,14 @@ public class ManaCompDetaCrudRepositoryImpl implements IManaCompDetaRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public ManaCompDeta findById(Integer id) {
+    public ManaCompDeta findById(Long id) {
         return manaCompDetaMapper.toDomain(iManaCompDetaCrudRepository.findById(id).orElseThrow(
                 ()-> new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla sucursal ManaCompDeta")
         ));
     }
 
     @Override
-    public ManaCompDeta update(Integer id, ManaCompDeta manaCompDeta) {
+    public ManaCompDeta update(Long id, ManaCompDeta manaCompDeta) {
         try {
             if (!iManaCompDetaCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla sucursal ManaCompDeta");
@@ -65,7 +65,7 @@ public class ManaCompDetaCrudRepositoryImpl implements IManaCompDetaRepository {
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         try {
             if (!iManaCompDetaCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla categoria A ManaCompDeta");

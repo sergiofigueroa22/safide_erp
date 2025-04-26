@@ -8,7 +8,7 @@ import safide.erp.sale.domain.model.SaleCustHead;
 
 @RestController
 @RequestMapping("/api/v1/customer")
-public class SaleCustHeadController extends GeneErpController<SaleCustHead, Integer> {
+public class SaleCustHeadController extends GeneErpController<SaleCustHead, Long> {
     public SaleCustHeadController(SaleCustHeadService saleCustHeadService) {
         super(saleCustHeadService);
     }

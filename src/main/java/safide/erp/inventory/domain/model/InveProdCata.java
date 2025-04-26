@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InveProdCata {
-	private Integer id;
-	private Integer id_macohe;
-    	private Integer id_macode;
+	private Long id;
+	private Long id_macohe;
+	private Long id_macode;
 	private String name_inprca;
 	private String alterna_inprca;
 }

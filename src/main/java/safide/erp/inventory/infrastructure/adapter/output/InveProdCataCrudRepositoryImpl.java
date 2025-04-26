@@ -48,7 +48,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public InveProdCata findById(Integer id) {
+    public InveProdCata findById(Long id) {
         return inveProdCataMapper.toDomain(iInveProdCataCrudRepository.findById(id).orElseThrow(
                 ()-> new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla categoria A InveProdCata")
         ));
@@ -56,7 +56,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
 
     @Override
     @Transactional
-    public InveProdCata update(Integer id, InveProdCata inveprocata) {
+    public InveProdCata update(Long id, InveProdCata inveprocata) {
         try {
             if (!iInveProdCataCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla categoria A InveProdCata");
@@ -70,7 +70,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         try {
             if (!iInveProdCataCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla categoria A InveProdCata");

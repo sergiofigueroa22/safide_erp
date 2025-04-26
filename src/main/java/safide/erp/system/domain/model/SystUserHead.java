@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SystUserHead {
-	private Integer id;
+	private Long id;
     private String name_syushe;
     private String delegat_syushe;
     private String email_syushe;
     private String passwor_syushe;
     private LocalDateTime datacre_syushe;
     private SystUserType sysusertype;
-    private Integer id_macohe;
-    private Integer id_macode;
+    private Long id_macohe;
+    private Long id_macode;
 }

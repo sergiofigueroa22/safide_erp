@@ -14,7 +14,7 @@ import safide.erp.system.domain.model.SystUserHead;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class SystUserHeadController extends GeneErpController<SystUserHead, Integer> {
+public class SystUserHeadController extends GeneErpController<SystUserHead, Long> {
 	public SystUserHeadController(SystUserHeadService systUserHeadService) {
 		super(systUserHeadService);
 	}

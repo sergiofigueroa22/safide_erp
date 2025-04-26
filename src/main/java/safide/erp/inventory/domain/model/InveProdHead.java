@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InveProdHead {
-	private Integer id;
+	private Long id;
 	private String name_inprhe;
 	private String descrip_inprhe;
 	private String barcode_inprhe;
@@ -24,10 +24,10 @@ public class InveProdHead {
     private BigDecimal discoun_inprhe;
     private LocalDateTime date_inprhe;
     private String serie_inprhe;
-    private Integer idrecur_inprhe;
+    private Long idrecur_inprhe;
     private String brand_inprhe;
     private BigDecimal stock_inprhe;
-    private Integer id_inprca;
-    private Integer id_macohe;
-    private Integer id_macode;
+    private Long id_inprca;
+    private Long id_macohe;
+    private Long id_macode;
 }

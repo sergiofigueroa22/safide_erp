@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SaleCustHead {
-    private Integer id;
-    private Integer id_macode;
-    private Integer id_macohe;
+    private Long id;
+    private Long id_macode;
+    private Long id_macohe;
     private String name_sacuhe;
     private String pseudo_sacuhe;
     private String documea_sacuhe;
@@ -32,6 +32,6 @@ public class SaleCustHead {
     private String observa_sacuhe;
     private String observb_sacuhe;
     private String observc_sacuhe;
-    private Integer idrecur_sacuhe;
-    private Integer related_sacuhe;
+    private Long idrecur_sacuhe;
+    private Long related_sacuhe;
 }

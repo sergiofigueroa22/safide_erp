@@ -7,7 +7,7 @@ import safide.erp.management.domain.model.ManaCompDeta;
 
 @RestController
 @RequestMapping("/api/v1/agency")
-public class ManaCompDetaController extends GeneErpController<ManaCompDeta, Integer> {
+public class ManaCompDetaController extends GeneErpController<ManaCompDeta, Long> {
     public ManaCompDetaController(ManaCompDetaService manaCompDetaService) {
         super(manaCompDetaService);
     }

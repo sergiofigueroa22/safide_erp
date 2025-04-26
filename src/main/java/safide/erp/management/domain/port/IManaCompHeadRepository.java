@@ -3,5 +3,5 @@ package safide.erp.management.domain.port;
 import safide.erp.generic.domain.port.IGeneErpRepository;
 import safide.erp.management.domain.model.ManaCompHead;
 
-public interface IManaCompHeadRepository extends IGeneErpRepository<ManaCompHead, Integer> {
+public interface IManaCompHeadRepository extends IGeneErpRepository<ManaCompHead, Long> {
 }

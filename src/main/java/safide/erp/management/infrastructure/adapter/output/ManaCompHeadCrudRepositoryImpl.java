@@ -44,14 +44,14 @@ public class ManaCompHeadCrudRepositoryImpl implements IManaCompHeadRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public ManaCompHead findById(Integer id) {
+    public ManaCompHead findById(Long id) {
         return manaCompHeadMapper.toDomain(iManaCompHeadCrudRepository.findById(id).orElseThrow(
                 ()-> new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla compania ManaCompHead")
         ));
     }
 
     @Override
-    public ManaCompHead update(Integer id, ManaCompHead manaCompHead) {
+    public ManaCompHead update(Long id, ManaCompHead manaCompHead) {
         try {
             if (!iManaCompHeadCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla compania ManaCompHead");
@@ -65,7 +65,7 @@ public class ManaCompHeadCrudRepositoryImpl implements IManaCompHeadRepository {
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         try {
             if (!iManaCompHeadCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla compania ManaCompHead");

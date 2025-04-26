@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ManaCompHead {
-	private Integer id;
+	private Long id;
 	private String name_macohe;
 	private String pseudon_macohe;
 	private String address_macode;

@@ -19,13 +19,12 @@ public class SaleCustHeadEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sacuhe")
-    private Integer id;
-    @Column(unique = true, nullable = true)
-    private String documea_sacuhe;
-    private Integer id_macode;
-    private Integer id_macohe;
+    private Long id;
+    private Long id_macode;
+    private Long id_macohe;
     private String name_sacuhe;
     private String pseudo_sacuhe;
+    private String documea_sacuhe;
     private String streeta_sacuhe;
     private String streetb_sacuhe;
     private String postalc_sacuhe;
@@ -36,13 +35,13 @@ public class SaleCustHeadEntity {
     private String movil_sacuhe;
     private String emaila_sacuhe;
     private String emailb_sacuhe;
-    private String urlweb_sacuhe;
+    private String url_web_sacuhe;
     private String delegat_sacuhe;
     private LocalDateTime date_sacuhe;
     private LocalDateTime date_syst_sacuhe;
     private String observa_sacuhe;
     private String observb_sacuhe;
     private String observc_sacuhe;
-    private Integer idrecur_sacuhe;
-    private Integer related_sacuhe;
+    private Long idrecur_sacuhe;
+    private Long related_sacuhe;
 }

@@ -7,7 +7,7 @@ import safide.erp.inventory.domain.model.InveProdCata;
 
 @RestController
 @RequestMapping("/api/v1/categorya")
-public class InveProdCataController extends GeneErpController<InveProdCata, Integer> {
+public class InveProdCataController extends GeneErpController<InveProdCata, Long> {
     public InveProdCataController(InveProdCataService inveProdCataService) {
         super(inveProdCataService);
     }

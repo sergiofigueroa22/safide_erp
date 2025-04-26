@@ -1,5 +1,4 @@
 package safide.erp.sale.infrastructure.adapter.output;
-
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
@@ -23,19 +22,19 @@ public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
 
     @Override
     @Transactional
-    public SaleCustHead save(SaleCustHead saleCustHead) {
+    public SaleCustHead save(SaleCustHead salecuthead) {
         try {
-            return saleCustHeadMapper.toDomain(iSaleCustHeadCrudRepository.save(saleCustHeadMapper.toEntity(saleCustHead)));
+            return saleCustHeadMapper.toDomain(iSaleCustHeadCrudRepository.save(saleCustHeadMapper.toEntity(salecuthead)));
         } catch (DataIntegrityViolationException ex) {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
-                    "Error de integridad de datos al guardar clientes ", ex);
+                    "Error de integridad de datos al guardar clientes " + ex.getLocalizedMessage(), ex);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar clientes SaleCustHead", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar clientes SaleCustHead " + ex.getMessage(), ex);
         }
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public Iterable<SaleCustHead> findAll() {
         try {
             return saleCustHeadMapper.toDomainList(iSaleCustHeadCrudRepository.findAll());
@@ -45,8 +44,8 @@ public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
     }
 
     @Override
-    @Transactional
-    public SaleCustHead findById(Integer id) {
+    @Transactional(readOnly = true)
+    public SaleCustHead findById(Long id) {
         return saleCustHeadMapper.toDomain(iSaleCustHeadCrudRepository.findById(id).orElseThrow(
                 ()-> new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla clientes SaleCustHead")
         ));
@@ -54,7 +53,7 @@ public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
 
     @Override
     @Transactional
-    public SaleCustHead update(Integer id, SaleCustHead saleCustHead) {
+    public SaleCustHead update(Long id, SaleCustHead saleCustHead) {
         try {
             if(!iSaleCustHeadCrudRepository.existsById(id)){
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla clientes SaleCustHead");
@@ -67,7 +66,7 @@ public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         try {
             if(!iSaleCustHeadCrudRepository.existsById(id)){
                 throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla clientes SaleCustHead");

@@ -4,7 +4,7 @@ import safide.erp.generic.application.port.GeneErpService;
 import safide.erp.system.domain.model.SystUserHead;
 import safide.erp.system.domain.port.ISystUserHeadRepository;
 
-public class SystUserHeadService extends GeneErpService<SystUserHead, Integer> {
+public class SystUserHeadService extends GeneErpService<SystUserHead, Long> {
 	SystUserHeadService iSystUserHeadRepository;
 
 	public SystUserHeadService(ISystUserHeadRepository iSystUserHeadRepository) {

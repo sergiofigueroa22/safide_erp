@@ -39,7 +39,7 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 	}
 
 	@Override
-	public SystUserHead findById(Integer id) {
+	public SystUserHead findById(Long id) {
 		// TODO Auto-generated method stub
 		//return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.findById(id).get());
 		return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.findById(id).orElseThrow(
@@ -48,7 +48,7 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 	}
 
 	@Override
-	public SystUserHead update(Integer integer, SystUserHead entity) {
+	public SystUserHead update(Long id, SystUserHead entity) {
 		return null;
 	}
 
@@ -59,7 +59,7 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void deleteById(Long id) {
 		// TODO Auto-generated method stub
 		
 	}

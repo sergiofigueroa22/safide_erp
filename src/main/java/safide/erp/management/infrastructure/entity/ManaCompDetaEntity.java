@@ -17,8 +17,8 @@ public class ManaCompDetaEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_macode")
-	private Integer id;
-	private Integer id_macohe;
+	private Long id;
+	private Long id_macohe;
 	@Column(unique = true, nullable = true)
 	private String name_macode;
 	private String pseudon_macode;

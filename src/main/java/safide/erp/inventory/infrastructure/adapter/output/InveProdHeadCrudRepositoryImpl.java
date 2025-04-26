@@ -45,15 +45,15 @@ public class InveProdHeadCrudRepositoryImpl implements IInveProdHeadRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public InveProdHead findById(Integer id) {
+        @Transactional(readOnly = true)
+    public InveProdHead findById(Long id) {
         return inveProdHeadMapper.toDomain(iInveProdHeadCrudRepository.findById(id).orElseThrow(
                 ()-> new GeneErrorResponse("NOT_FOUND","Registro de producto InveProdHead no encontrado con ID: " + id)
         ));
     }
 
     @Override
-    public InveProdHead update(Integer id, InveProdHead inveprohead) {
+    public InveProdHead update(Long id, InveProdHead inveprohead) {
         try {
             if (!iInveProdHeadCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","Registro de producto InveProdHead no encontrado para actualizar. ID: " + id);
@@ -67,7 +67,7 @@ public class InveProdHeadCrudRepositoryImpl implements IInveProdHeadRepository {
 
     @Override
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         try {
             if (!iInveProdHeadCrudRepository.existsById(id)) {
                 throw new GeneErrorResponse("NOT_FOUND","Registro de producto InveProdHead no encontrado para actualizar. ID: " + id);

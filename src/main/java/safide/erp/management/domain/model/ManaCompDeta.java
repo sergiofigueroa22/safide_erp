@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ManaCompDeta {
-	private Integer id;
-	private Integer id_macohe;
+	private Long id;
+	private Long id_macohe;
 	private String name_macode;
 	private String pseudon_macode;
 	private String address_macode;

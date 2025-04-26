@@ -17,7 +17,7 @@ public class ManaCompHeadEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_macohe")
-	private Integer id;
+	private Long id;
 	@Column(unique = true, nullable = true)
 	private String name_macohe;
 	private String pseudon_macohe;
