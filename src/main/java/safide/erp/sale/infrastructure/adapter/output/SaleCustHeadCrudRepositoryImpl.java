@@ -27,7 +27,7 @@ public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
             return saleCustHeadMapper.toDomain(iSaleCustHeadCrudRepository.save(saleCustHeadMapper.toEntity(salecuthead)));
         } catch (DataIntegrityViolationException ex) {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
-                    "Error de integridad de datos al guardar clientes " + ex.getLocalizedMessage(), ex);
+                    "Error de integridad de datos al guardar clientes " + ex.getCause(), ex);
         } catch (DataAccessException ex) {
             throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar clientes SaleCustHead " + ex.getMessage(), ex);
         }

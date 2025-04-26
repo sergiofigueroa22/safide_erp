@@ -28,7 +28,7 @@ public class ManaCompHeadCrudRepositoryImpl implements IManaCompHeadRepository {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
                     "Error de integridad de datos al guardar compania ", ex);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar compania ManaCompHead", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar compania ManaCompHead "  + ex.getCause(), ex);
         }
     }
 
@@ -38,7 +38,7 @@ public class ManaCompHeadCrudRepositoryImpl implements IManaCompHeadRepository {
         try {
             return manaCompHeadMapper.toDomainList(iManaCompHeadCrudRepository.findAll());
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de compania ManaCompHead", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de compania ManaCompHead "  + ex.getCause(), ex);
         }
     }
 
@@ -59,7 +59,7 @@ public class ManaCompHeadCrudRepositoryImpl implements IManaCompHeadRepository {
             return manaCompHeadMapper.toDomain(iManaCompHeadCrudRepository.save(manaCompHeadMapper.toEntity(manaCompHead)));
 
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar compania ManaCompHead", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar compania ManaCompHead " + ex.getCause(), ex);
         }
     }
 
@@ -72,7 +72,7 @@ public class ManaCompHeadCrudRepositoryImpl implements IManaCompHeadRepository {
             }
             iManaCompHeadCrudRepository.deleteById(id);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR","Error al eliminar compania ManaCompHead", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR","Error al eliminar compania ManaCompHead "  + ex.getCause(), ex);
         }
     }
 }

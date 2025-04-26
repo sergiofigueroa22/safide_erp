@@ -1,6 +1,7 @@
 package safide.erp.system.infrastructure.adapter.output;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,14 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 
 	@Override
 	public SystUserHead save(SystUserHead systuserhead) {
-		// TODO Auto-generated method stub
-		return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.save(systUserHeadMapper.toEntity(systuserhead)));
+		try {
+			return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.save(systUserHeadMapper.toEntity(systuserhead)));
+		} catch (DataIntegrityViolationException ex) {
+			throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
+					"Error de integridad de datos al guardar usuario " + ex.getCause(), ex);
+		} catch (DataAccessException ex) {
+			throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar usuario SystUserHead "  + ex.getCause(), ex);
+		}
 	}
 
 	@Override
@@ -34,7 +41,7 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 		try {
 			return systUserHeadMapper.toDomainList(iSystUserHeadCrudRepository.findAll());
 		} catch (DataAccessException ex) {
-			throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de producto InveProdHead", ex);
+			throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de usuario SystUserHead " + ex.getCause(), ex);
 		}
 	}
 
@@ -43,25 +50,50 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 		// TODO Auto-generated method stub
 		//return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.findById(id).get());
 		return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.findById(id).orElseThrow(
-				()-> new GeneErrorResponse("NOT_FOUND","Registro de producto InveProdHead no encontrado con ID: " + id)
+				()-> new GeneErrorResponse("NOT_FOUND","Registro de usuario SystUserHead no encontrado con ID: " + id)
 		));
 	}
 
 	@Override
-	public SystUserHead update(Long id, SystUserHead entity) {
-		return null;
+	public SystUserHead update(Long id, SystUserHead systuserhead) {
+		try {
+			if (!iSystUserHeadCrudRepository.existsById(id)) {
+				throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla usuario SystUserHead");
+			}
+			return systUserHeadMapper.toDomain(iSystUserHeadCrudRepository.save(systUserHeadMapper.toEntity(systuserhead)));
+		} catch (DataAccessException ex) {
+			throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar usuario SystUserHead "  + ex.getCause(), ex);
+		}
 	}
 
 	@Override
 	public SystUserHead findByEmail(String emailsyushe) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return systUserHeadMapper.toDomain(
+					iSystUserHeadCrudRepository.findByEmailsyushe(emailsyushe)
+							.orElseThrow(() -> new GeneErrorResponse(
+									"NOT_FOUND",
+									"Usuario no encontrado con email: " + emailsyushe
+							))
+			);
+		} catch (DataAccessException ex) {
+			throw new GeneErrorResponse(
+					"DATABASE_ERROR",
+					"Error al buscar usuario por email: " + emailsyushe + " - " + ex.getCause(),  ex
+			);
+		}
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		try {
+			if (!iSystUserHeadCrudRepository.existsById(id)) {
+				throw new GeneErrorResponse("NOT_FOUND","ID: " + id + " no existe en la base de datos, tabla usuario SystUserHead");
+			}
+			iSystUserHeadCrudRepository.deleteById(id);
+		} catch (DataAccessException ex) {
+			throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar usuario SystUserHead "  + ex.getCause(), ex);
+		}
 	}
 	
 

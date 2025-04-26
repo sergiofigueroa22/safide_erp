@@ -30,9 +30,9 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
             return inveProdCataMapper.toDomain(iInveProdCataCrudRepository.save(inveProdCataMapper.toEntity(inveprocata)));
         } catch (DataIntegrityViolationException ex) {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
-                    "Error de integridad de datos al guardar categoria A ", ex);
+                    "Error de integridad de datos al guardar categoria A " + ex.getCause(), ex);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar categoria A InveProdCata", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar categoria A InveProdCata "+ex.getCause(), ex);
         }
     }
 
@@ -42,7 +42,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
        try {
            return inveProdCataMapper.toDomainList(iInveProdCataCrudRepository.findAll());
        } catch (DataAccessException ex) {
-           throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de categoria A InveProdCata", ex);
+           throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de categoria A InveProdCata " + ex.getCause(), ex);
        }
     }
 
@@ -64,7 +64,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
             return inveProdCataMapper.toDomain(iInveProdCataCrudRepository.save(inveProdCataMapper.toEntity(inveprocata)));
 
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar caterogia A InveProdCata", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar caterogia A InveProdCata "  + ex.getCause(), ex);
         }
     }
 
@@ -77,7 +77,7 @@ public class InveProdCataCrudRepositoryImpl implements IInveProdCataRepository {
             }
             iInveProdCataCrudRepository.deleteById(id);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR","Error al eliminar caterogia A InveProdCata", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR","Error al eliminar caterogia A InveProdCata "  + ex.getCause(), ex);
         }
     }
 

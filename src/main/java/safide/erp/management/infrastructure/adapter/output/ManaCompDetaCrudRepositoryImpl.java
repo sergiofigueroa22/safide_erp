@@ -26,9 +26,9 @@ public class ManaCompDetaCrudRepositoryImpl implements IManaCompDetaRepository {
             return manaCompDetaMapper.toDomain(iManaCompDetaCrudRepository.save(manaCompDetaMapper.toEntity(detaprocata)));
         } catch (DataIntegrityViolationException ex) {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
-                    "Error de integridad de datos al guardar sucursal ", ex);
+                    "Error de integridad de datos al guardar sucursal " + ex.getCause(), ex);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar sucursal ManaCompDeta", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar sucursal ManaCompDeta "  + ex.getCause(), ex);
         }
     }
 
@@ -38,7 +38,7 @@ public class ManaCompDetaCrudRepositoryImpl implements IManaCompDetaRepository {
         try {
             return manaCompDetaMapper.toDomainList(iManaCompDetaCrudRepository.findAll());
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de sucursal ManaCompDeta", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR", "Error al acceder a los datos de sucursal ManaCompDeta "  + ex.getCause(), ex);
         }
     }
 
@@ -59,7 +59,7 @@ public class ManaCompDetaCrudRepositoryImpl implements IManaCompDetaRepository {
             return manaCompDetaMapper.toDomain(iManaCompDetaCrudRepository.save(manaCompDetaMapper.toEntity(manaCompDeta)));
 
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar sucursal ManaCompDeta", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar sucursal ManaCompDeta " + ex.getCause(), ex);
         }
     }
 
@@ -72,7 +72,7 @@ public class ManaCompDetaCrudRepositoryImpl implements IManaCompDetaRepository {
             }
             iManaCompDetaCrudRepository.deleteById(id);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR","Error al eliminar caterogia A ManaCompDeta", ex);
+            throw new GeneErrorResponse("DATABASE_ERROR","Error al eliminar caterogia A ManaCompDeta " + ex.getCause(), ex);
         }
     }
 }
