@@ -1,8 +1,6 @@
 package safide.erp.sale.infrastructure.adapter.output;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import safide.erp.generic.infrastructure.exception.GeneErrorResponse;
@@ -13,7 +11,6 @@ import safide.erp.sale.infrastructure.mapper.SaleCustHeadMapper;
 
 @Repository
 public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
-
     private final ISaleCustHeadCrudRepository iSaleCustHeadCrudRepository;
     private final SaleCustHeadMapper saleCustHeadMapper;
 

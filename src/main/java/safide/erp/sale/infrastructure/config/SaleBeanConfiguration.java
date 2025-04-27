@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import safide.erp.sale.application.port.SaleCustHeadService;
 import safide.erp.sale.application.port.SaleInvoDetaService;
 import safide.erp.sale.application.port.SaleInvoHeadService;
+import safide.erp.sale.application.port.SaleInvoTaxeService;
 import safide.erp.sale.domain.port.ISaleCustHeadRepository;
 import safide.erp.sale.domain.port.ISaleInvoDetaRepository;
 import safide.erp.sale.domain.port.ISaleInvoHeadRepository;
+import safide.erp.sale.domain.port.ISaleInvoTaxeRepository;
 
 @Configuration
 public class SaleBeanConfiguration {
@@ -22,5 +24,9 @@ public class SaleBeanConfiguration {
     @Bean
     SaleInvoDetaService saleInvoDetaService(ISaleInvoDetaRepository isaleInvoDetaRepository) {
         return new SaleInvoDetaService(isaleInvoDetaRepository);
+    }
+    @Bean
+    SaleInvoTaxeService saleInvoTaxeService(ISaleInvoTaxeRepository isaleInvoTaxeRepository) {
+        return new SaleInvoTaxeService(isaleInvoTaxeRepository);
     }
 }
