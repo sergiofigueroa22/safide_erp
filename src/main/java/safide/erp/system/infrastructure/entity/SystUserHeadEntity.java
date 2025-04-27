@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import safide.erp.system.domain.model.SystUserType;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name="syst_user_head")
@@ -26,6 +27,8 @@ public class SystUserHeadEntity {
 	@Column(unique = true, nullable = true)
     private String name_syushe;
     private String delegat_syushe;
+    @Email(message = "El formato del correo electrónico no es válido")
+    @Column(name = "email_syushe", unique = true, nullable = true)
     private String email_syushe;
     private String passwor_syushe;
     private LocalDateTime datacre_syushe;

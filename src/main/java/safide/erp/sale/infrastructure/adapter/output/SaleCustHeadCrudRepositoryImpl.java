@@ -1,6 +1,8 @@
 package safide.erp.sale.infrastructure.adapter.output;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import safide.erp.generic.infrastructure.exception.GeneErrorResponse;
@@ -76,4 +78,16 @@ public class SaleCustHeadCrudRepositoryImpl implements ISaleCustHeadRepository {
             throw new GeneErrorResponse("DATABASE_ERROR","Error al actualizar cliente SaleCustHead", ex);
         }
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Page<SaleCustHead> findAll(Pageable pageable) {
+//        try {
+//            return iSaleCustHeadCrudRepository.findAll(pageable)
+//                    .map(saleCustHeadMapper::toDomain);
+//        } catch (DataAccessException ex) {
+//            throw new GeneErrorResponse("DATABASE_ERROR",
+//                    "Error paginando usuarios: " + ex.getCause(), ex);
+//        }
+//    }
 }

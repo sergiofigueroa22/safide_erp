@@ -2,6 +2,8 @@ package safide.erp.system.infrastructure.adapter.output;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -67,24 +69,6 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 	}
 
 	@Override
-	public SystUserHead findByEmail(String emailsyushe) {
-		try {
-			return systUserHeadMapper.toDomain(
-					iSystUserHeadCrudRepository.findByEmailsyushe(emailsyushe)
-							.orElseThrow(() -> new GeneErrorResponse(
-									"NOT_FOUND",
-									"Usuario no encontrado con email: " + emailsyushe
-							))
-			);
-		} catch (DataAccessException ex) {
-			throw new GeneErrorResponse(
-					"DATABASE_ERROR",
-					"Error al buscar usuario por email: " + emailsyushe + " - " + ex.getCause(),  ex
-			);
-		}
-	}
-
-	@Override
 	public void deleteById(Long id) {
 		try {
 			if (!iSystUserHeadCrudRepository.existsById(id)) {
@@ -95,6 +79,4 @@ public class SystUserHeadCrudRepositoryImpl implements ISystUserHeadRepository {
 			throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar usuario SystUserHead "  + ex.getCause(), ex);
 		}
 	}
-	
-
 }

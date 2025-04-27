@@ -1,5 +1,7 @@
 package safide.erp.generic.application.port;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import safide.erp.generic.domain.port.IGeneErpRepository;
 
 public class GeneErpService <T, ID> {
@@ -28,4 +30,9 @@ public class GeneErpService <T, ID> {
     public void deleteById(ID id) {
         iGeneErpRepository.deleteById(id);
     }
+
+//    public Page<T> findAll(Pageable pageable) {
+//        return iGeneErpRepository.findAll(pageable);
+//    }
+
 }
