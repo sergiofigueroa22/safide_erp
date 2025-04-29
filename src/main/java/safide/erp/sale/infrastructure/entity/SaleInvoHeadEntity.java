@@ -49,6 +49,5 @@ public class SaleInvoHeadEntity {
     @OneToMany(mappedBy = "saleInvoHeadEntity", cascade = CascadeType.PERSIST)
     private List<SaleInvoDetaEntity> saleInvoDetas;
 
-    @OneToMany(mappedBy = "saleInvoHeadTaxeEntity", cascade = CascadeType.PERSIST)
-    private List<SaleInvoTaxeEntity> saleInvoTaxes;
+
 }

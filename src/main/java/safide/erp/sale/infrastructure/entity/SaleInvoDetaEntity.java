@@ -3,10 +3,9 @@ package safide.erp.sale.infrastructure.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import safide.erp.sale.domain.model.SaleInvoHead;
 
-import javax.naming.Name;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name="sale_invo_deta")
@@ -35,5 +34,8 @@ public class SaleInvoDetaEntity {
     @ManyToOne()
     @JoinColumn(name = "id_sainhe")
     private SaleInvoHeadEntity saleInvoHeadEntity;
+
+    @OneToMany(mappedBy = "saleInvoDetaEntity", cascade = CascadeType.PERSIST)
+    private List<SaleInvoTaxeEntity> saleInvoTaxes;
 
 }

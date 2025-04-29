@@ -7,4 +7,5 @@ import safide.erp.sale.infrastructure.entity.SaleInvoTaxeEntity;
 
 @Mapper(componentModel = "spring")
 public interface SaleInvoTaxeMapper extends GeneErpMapper<SaleInvoTaxe, SaleInvoTaxeEntity> {
+
 }

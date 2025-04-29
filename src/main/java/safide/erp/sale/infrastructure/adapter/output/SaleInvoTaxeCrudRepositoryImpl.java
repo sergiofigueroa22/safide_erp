@@ -11,11 +11,11 @@ import safide.erp.sale.infrastructure.adapter.input.ISaleInvoTaxeCrudRepository;
 import safide.erp.sale.infrastructure.mapper.SaleInvoTaxeMapper;
 
 @Repository
-public class ISaleInvoTaxeRepositoryImpl implements ISaleInvoTaxeRepository {
+public class SaleInvoTaxeCrudRepositoryImpl implements ISaleInvoTaxeRepository {
     private final ISaleInvoTaxeCrudRepository icrudRepository;
     private final SaleInvoTaxeMapper mapper;
 
-    public ISaleInvoTaxeRepositoryImpl(ISaleInvoTaxeCrudRepository icrudRepository, SaleInvoTaxeMapper mapper) {
+    public SaleInvoTaxeCrudRepositoryImpl(ISaleInvoTaxeCrudRepository icrudRepository, SaleInvoTaxeMapper mapper) {
         this.icrudRepository = icrudRepository;
         this.mapper = mapper;
     }

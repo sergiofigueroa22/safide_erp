@@ -13,11 +13,11 @@ public class SaleInvoTaxeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sainta")
     private Long id;
-    private Long d_macohe;
+    private Long id_macohe;
     private Long id_macode;
     private Long id_getahe;
     private Long quantia_sainta;
     @ManyToOne()
-    @JoinColumn(name = "id_sainhe")
-    private SaleInvoHeadEntity saleInvoHeadTaxeEntity;
+    @JoinColumn(name = "id_sainde")
+    private SaleInvoDetaEntity saleInvoDetaEntity;
 }

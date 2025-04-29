@@ -7,7 +7,7 @@ import safide.erp.sale.application.port.SaleInvoDetaService;
 import safide.erp.sale.domain.model.SaleInvoDeta;
 
 @RestController
-@RequestMapping("/api/v1/detainvoice")
+@RequestMapping("/api/v1/invoicedeta")
 public class SaleInvoDetaController extends GeneErpController<SaleInvoDeta, Long> {
     public SaleInvoDetaController(SaleInvoDetaService saleInvoDetaService) {
         super(saleInvoDetaService);

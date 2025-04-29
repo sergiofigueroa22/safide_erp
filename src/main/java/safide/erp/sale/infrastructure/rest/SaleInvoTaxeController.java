@@ -7,7 +7,7 @@ import safide.erp.sale.application.port.SaleInvoTaxeService;
 import safide.erp.sale.domain.model.SaleInvoTaxe;
 
 @RestController
-@RequestMapping("/api/v1/taxe")
+@RequestMapping("/api/v1/invoicetaxe")
 public class SaleInvoTaxeController extends GeneErpController<SaleInvoTaxe, Long> {
 
     public SaleInvoTaxeController(SaleInvoTaxeService saleInvoTaxeService) {

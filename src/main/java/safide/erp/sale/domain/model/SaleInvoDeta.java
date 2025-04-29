@@ -1,8 +1,10 @@
 package safide.erp.sale.domain.model;
 
+import jakarta.persistence.Column;
 import lombok.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Data
 @Builder
@@ -10,7 +12,7 @@ import java.math.RoundingMode;
 @NoArgsConstructor
 public class SaleInvoDeta {
 
-    private static final int CALC_SCALE = 6;
+    private static final int CALC_SCALE = 22;
     private static final int FINAL_SCALE = 2;
     private static final RoundingMode ROUND_MODE = RoundingMode.HALF_UP;
     private static final BigDecimal MAX_DISCOUNT = BigDecimal.valueOf(100);
@@ -19,16 +21,22 @@ public class SaleInvoDeta {
     private Long id_macohe;
     private Long id_inprhe;
     private Long id_macode;
+    @Column(columnDefinition = "NUMERIC(22,15)")
     @Builder.Default
     private BigDecimal quantia_sainde = BigDecimal.ZERO;
+    @Column(columnDefinition = "NUMERIC(22,15)")
     @Builder.Default
     private BigDecimal discoun_sainde = BigDecimal.ZERO;
+    @Column(columnDefinition = "NUMERIC(22,15)")
     @Builder.Default
     private BigDecimal pricea_sainde = BigDecimal.ZERO;
-    private BigDecimal priceb_sainde;
+    @Column(columnDefinition = "NUMERIC(22,15)")
+    @Builder.Default
+    private BigDecimal priceb_sainde = BigDecimal.ZERO;
+    @Column(columnDefinition = "NUMERIC(22,15)")
     @Builder.Default
     private BigDecimal value_sainde = BigDecimal.ZERO;
-
+    List<SaleInvoTaxe> saleInvoTaxes;
     public void calcularPrecios() {
         validarDatosParaCalculo();
         validarDescuento();
