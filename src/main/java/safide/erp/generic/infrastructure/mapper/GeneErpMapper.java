@@ -7,9 +7,7 @@ import org.mapstruct.Mappings;
 public interface GeneErpMapper<T, E> {
     @Mappings(
             {
-                    @Mapping(source ="id", target="id"),
-                    @Mapping(source ="id_macohe", target="id_macohe"),
-                    @Mapping(source ="id_macode", target="id_macode")
+                    @Mapping(source ="id", target="id")
             }
     )
     T toDomain(E entity);

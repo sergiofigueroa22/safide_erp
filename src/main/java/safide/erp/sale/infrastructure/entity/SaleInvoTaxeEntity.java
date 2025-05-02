@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name="sale_invo_taxe")
 @Data
@@ -16,7 +18,8 @@ public class SaleInvoTaxeEntity {
     private Long id_macohe;
     private Long id_macode;
     private Long id_getahe;
-    private Long quantia_sainta;
+    @Column(columnDefinition = "NUMERIC(22,15)")
+    private BigDecimal quantia_sainta;
     @ManyToOne()
     @JoinColumn(name = "id_sainde")
     private SaleInvoDetaEntity saleInvoDetaEntity;

@@ -3,6 +3,8 @@ package safide.erp.sale.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 public class SaleInvoTaxe {
@@ -10,5 +12,5 @@ public class SaleInvoTaxe {
     private Long id_macohe;
     private Long id_macode;
     private Long id_getahe;
-    private Long quantia_sainta;
+    private BigDecimal quantia_sainta;
 }

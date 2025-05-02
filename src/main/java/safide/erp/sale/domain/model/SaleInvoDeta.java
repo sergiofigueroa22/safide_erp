@@ -36,6 +36,7 @@ public class SaleInvoDeta {
     @Column(columnDefinition = "NUMERIC(22,15)")
     @Builder.Default
     private BigDecimal value_sainde = BigDecimal.ZERO;
+    private Long id_getahe;
     List<SaleInvoTaxe> saleInvoTaxes;
     public void calcularPrecios() {
         validarDatosParaCalculo();

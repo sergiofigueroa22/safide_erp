@@ -42,4 +42,5 @@ public class InveProdHeadEntity {
     private Long id_inprca;
     private Long id_macohe;
     private Long id_macode;
+    private Long id_getahe;
 }

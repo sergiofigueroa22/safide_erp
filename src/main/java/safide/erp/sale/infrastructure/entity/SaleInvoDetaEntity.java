@@ -31,6 +31,7 @@ public class SaleInvoDetaEntity {
     private String observa_sainde;
     private String observb_sainde;
     private String observc_sainde;
+    private Long id_getahe;
     @ManyToOne()
     @JoinColumn(name = "id_sainhe")
     private SaleInvoHeadEntity saleInvoHeadEntity;
