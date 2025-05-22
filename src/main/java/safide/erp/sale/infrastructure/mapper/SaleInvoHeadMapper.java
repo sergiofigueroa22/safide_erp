@@ -5,7 +5,7 @@ import safide.erp.generic.infrastructure.mapper.GeneErpMapper;
 import safide.erp.sale.domain.model.SaleInvoHead;
 import safide.erp.sale.infrastructure.entity.SaleInvoHeadEntity;
 
-@Mapper(componentModel = "spring", uses = {SaleInvoDetaMapper.class, SaleInvoTaxeMapper.class})
+@Mapper(componentModel = "spring", uses = {SaleInvoDetaMapper.class})
 public interface SaleInvoHeadMapper extends GeneErpMapper<SaleInvoHead, SaleInvoHeadEntity> {
 
 }

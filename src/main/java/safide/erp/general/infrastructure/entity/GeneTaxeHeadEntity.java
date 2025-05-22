@@ -1,8 +1,6 @@
 package safide.erp.general.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,9 +17,9 @@ public class GeneTaxeHeadEntity {
     private Long id;
     private Long id_macohe;
     private Long id_macode;
-    @Column(length=60, unique = true, nullable = false)
+    private Long id_getaty;
     private String name_getahe;
-    private BigDecimal quantia_getahe = BigDecimal.ZERO;
-    @Column(length=10,nullable = true)
+    private BigDecimal amount_getahe;
     private String alterna_getahe;
+    private BigDecimal percent_getahe;
 }

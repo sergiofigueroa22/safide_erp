@@ -7,6 +7,7 @@ import safide.erp.generic.infrastructure.exception.GeneErrorResponse;
 import safide.erp.sale.domain.model.SaleInvoDeta;
 import safide.erp.sale.domain.port.ISaleInvoDetaRepository;
 import safide.erp.sale.infrastructure.adapter.input.ISaleInvoDetaCrudRepository;
+import safide.erp.sale.infrastructure.entity.SaleInvoDetaEntity;
 import safide.erp.sale.infrastructure.mapper.SaleInvoDetaMapper;
 
 @Repository
@@ -24,6 +25,7 @@ public class SaleInvoDetaCrudRepositoryImpl implements ISaleInvoDetaRepository {
     @Transactional
     public SaleInvoDeta save(SaleInvoDeta saleinvodeta) {
         try {
+            SaleInvoDetaEntity saleinvodetaEntity = saleInvoDetaMapper.toEntity(saleinvodeta);
             return saleInvoDetaMapper.toDomain(iSaleInvoDetaCrudRepository.save(saleInvoDetaMapper.toEntity(saleinvodeta)));
         } catch (DataIntegrityViolationException ex) {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",

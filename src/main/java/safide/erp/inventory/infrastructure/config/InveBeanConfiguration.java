@@ -17,6 +17,6 @@ public class InveBeanConfiguration {
     @Bean
     InveProdHeadService inveProdHeadService(IInveProdHeadRepository iInveProdHeadRepository) {
         return new InveProdHeadService(iInveProdHeadRepository);
-    };
+    }
 
 }

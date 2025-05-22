@@ -17,5 +17,5 @@ public class ManaBeanConfiguration {
     @Bean
     ManaCompHeadService manaCompHeadService(IManaCompHeadRepository iManaCompHeadRepository) {
         return new ManaCompHeadService(iManaCompHeadRepository);
-    };
+    }
 }

@@ -3,10 +3,13 @@ package safide.erp.sale.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import safide.erp.general.domain.model.GeneTaxeHead;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -40,19 +43,45 @@ public class SaleInvoHead {
     private String observe_sainhe;
     List<SaleInvoDeta> saleInvoDetas;
 
-    public SaleInvoHead(){
+    public SaleInvoHead() {
         saleInvoDetas = new ArrayList<>();
     }
-    public void actualizarTotales() {
-        this.saleInvoDetas.forEach(SaleInvoDeta::calcularPrecios);
+
+    // Método para actualizar los totales de la factura (incluyendo IVA)
+    public void actualizarTotales(List<GeneTaxeHead> taxList) {
+        // Pasamos la lista de impuestos a cada detalle para que calcule el IVA
+        this.saleInvoDetas.forEach(detalle -> detalle.calcularPrecios(taxList));
     }
+
+    // Método para obtener el subtotal de la factura (sin IVA)
     public BigDecimal getSubtotalInvoice() {
         return this.saleInvoDetas.stream()
                 .map(SaleInvoDeta::getValue_sainde)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    // Método para obtener el total de IVA de la factura
+    public BigDecimal getTotalIVA() {
+        return this.saleInvoDetas.stream()
+                .map(SaleInvoDeta::getValtaxe_sainde)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    // Método para obtener el total de descuento de la factura
+    public BigDecimal getTotalDescuento() {
+        return this.saleInvoDetas.stream()
+                .map(SaleInvoDeta::getValdisc_sainde)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    // Método para obtener el total de la factura (subtotal + IVA)
+    public BigDecimal getTotalInvoice() {
+        return getSubtotalInvoice().add(getTotalIVA()).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    // Método para agregar un detalle a la factura
     public void agregarDetalle(SaleInvoDeta detalle) {
-        detalle.calcularPrecios(); // Actualiza precios antes de agregar
+        detalle.calcularPrecios(new ArrayList<GeneTaxeHead>());  // Puedes pasar la lista de impuestos aquí si la tienes en el contexto
         this.saleInvoDetas.add(detalle);
     }
 }

@@ -6,5 +6,5 @@ import safide.erp.inventory.domain.model.InveProdCata;
 import safide.erp.inventory.infrastructure.entity.InveProdCataEntity;
 
 @Mapper(componentModel = "spring")
-public interface InveProdCataMapper extends GeneErpMapper<InveProdCata, InveProdCataEntity> {;
+public interface InveProdCataMapper extends GeneErpMapper<InveProdCata, InveProdCataEntity> {
 }

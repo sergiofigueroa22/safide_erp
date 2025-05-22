@@ -17,4 +17,5 @@ public class GeneTaxeHead {
     private String name_getahe;
     private BigDecimal amount_getahe;
     private String alterna_getahe;
+    private BigDecimal percent_getahe;
 }

@@ -2,16 +2,19 @@ package safide.erp.sale.domain.model;
 
 import jakarta.persistence.Column;
 import lombok.*;
+import safide.erp.general.domain.model.GeneTaxeHead;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SaleInvoDeta {
-
     private static final int CALC_SCALE = 22;
     private static final int FINAL_SCALE = 2;
     private static final RoundingMode ROUND_MODE = RoundingMode.HALF_UP;
@@ -21,35 +24,66 @@ public class SaleInvoDeta {
     private Long id_macohe;
     private Long id_inprhe;
     private Long id_macode;
-    @Column(columnDefinition = "NUMERIC(22,15)")
-    @Builder.Default
+
     private BigDecimal quantia_sainde = BigDecimal.ZERO;
-    @Column(columnDefinition = "NUMERIC(22,15)")
-    @Builder.Default
-    private BigDecimal discoun_sainde = BigDecimal.ZERO;
-    @Column(columnDefinition = "NUMERIC(22,15)")
-    @Builder.Default
+    private BigDecimal perdisc_sainde = BigDecimal.ZERO;
     private BigDecimal pricea_sainde = BigDecimal.ZERO;
-    @Column(columnDefinition = "NUMERIC(22,15)")
-    @Builder.Default
     private BigDecimal priceb_sainde = BigDecimal.ZERO;
-    @Column(columnDefinition = "NUMERIC(22,15)")
-    @Builder.Default
     private BigDecimal value_sainde = BigDecimal.ZERO;
     private Long id_getahe;
-    List<SaleInvoTaxe> saleInvoTaxes;
-    public void calcularPrecios() {
+    private BigDecimal  valtaxe_sainde = BigDecimal.ZERO;
+    private BigDecimal  valdisc_sainde = BigDecimal.ZERO;
+    // Aquí calculamos los precios y el IVA antes de enviar al save
+    public void calcularPrecios(List<GeneTaxeHead> taxList) {
         validarDatosParaCalculo();
         validarDescuento();
+        // Calcular precios con descuento
         BigDecimal factorDescuento = BigDecimal.ONE.subtract(
-                discoun_sainde.divide(MAX_DISCOUNT, CALC_SCALE, ROUND_MODE)
+                perdisc_sainde.divide(MAX_DISCOUNT, CALC_SCALE, ROUND_MODE)
         );
         this.priceb_sainde = pricea_sainde.multiply(factorDescuento)
                 .setScale(FINAL_SCALE, ROUND_MODE);
+
+        // Calcular el valor base de la factura
         this.value_sainde = priceb_sainde.multiply(quantia_sainde)
                 .setScale(FINAL_SCALE, ROUND_MODE);
+
+        // Calcular el valor del descuento (total de descuento aplicado)
+        this.valdisc_sainde = pricea_sainde.subtract(priceb_sainde)
+                .multiply(quantia_sainde)
+                .setScale(FINAL_SCALE, ROUND_MODE);
+
+        // Calcular el IVA de los impuestos asociados
+        calcularIVA(taxList);
+
+
     }
 
+    // Método para calcular el IVA según el porcentaje del impuesto asociado
+    private void calcularIVA(List<GeneTaxeHead> taxList) {
+        if (id_getahe != null) {
+            // Buscar el tipo de impuesto correspondiente
+            GeneTaxeHead geneTaxeHead = taxList.stream()
+                    .filter(taxe -> taxe.getId().equals(id_getahe))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Impuesto no encontrado"));
+
+            // Obtener el porcentaje de IVA
+            BigDecimal ivaPercent = geneTaxeHead.getPercent_getahe();
+
+            // Calcular el valor del IVA
+            if (ivaPercent != null && ivaPercent.compareTo(BigDecimal.ZERO) > 0) {
+                this.valtaxe_sainde = value_sainde.multiply(ivaPercent.divide(BigDecimal.valueOf(100), FINAL_SCALE, ROUND_MODE))
+                        .setScale(FINAL_SCALE, ROUND_MODE);
+            } else {
+                this.valtaxe_sainde = BigDecimal.ZERO;
+            }
+        } else {
+            this.valtaxe_sainde = BigDecimal.ZERO;
+        }
+    }
+
+    // Métodos de validación
     private void validarDatosParaCalculo() {
         if (pricea_sainde == null || quantia_sainde == null) {
             throw new IllegalStateException("Precio base y cantidad son requeridos");
@@ -59,22 +93,12 @@ public class SaleInvoDeta {
             throw new IllegalArgumentException("Precio y cantidad no pueden ser negativos");
         }
     }
+
     private void validarDescuento() {
-        if (discoun_sainde.compareTo(BigDecimal.ZERO) < 0 ||
-                discoun_sainde.compareTo(MAX_DISCOUNT) > 0) {
-            throw new IllegalArgumentException("Descuento debe estar entre 0 y 100%");
+        if (perdisc_sainde.compareTo(BigDecimal.ZERO) < 0 ||
+                perdisc_sainde.compareTo(MAX_DISCOUNT) > 0) {
+            throw new IllegalArgumentException("Porcentaje de descuento debe estar entre 0 y 100%");
         }
     }
-    public void setPricea_sainde(BigDecimal pricea_sainde) {
-        this.pricea_sainde = pricea_sainde.setScale(FINAL_SCALE, ROUND_MODE);
-        calcularPrecios();
-    }
-    public void setQuantia_sainde(BigDecimal quantia_sainde) {
-        this.quantia_sainde = quantia_sainde.setScale(CALC_SCALE, ROUND_MODE);
-        calcularPrecios();
-    }
-    public void setDiscoun_sainde(BigDecimal discoun_sainde) {
-        this.discoun_sainde = discoun_sainde.setScale(FINAL_SCALE, ROUND_MODE);
-        calcularPrecios();
-    }
+
 }

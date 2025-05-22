@@ -3,42 +3,65 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import safide.erp.general.domain.model.GeneTaxeHead;
+import safide.erp.general.domain.port.IGeneTaxeHeadRepository;
 import safide.erp.generic.infrastructure.exception.GeneErrorResponse;
 import safide.erp.sale.domain.model.SaleInvoHead;
-import safide.erp.sale.domain.model.SaleInvoHead;
-import safide.erp.sale.domain.port.ISaleInvoHeadRepository;
 import safide.erp.sale.domain.port.ISaleInvoHeadRepository;
 import safide.erp.sale.infrastructure.adapter.input.ISaleInvoHeadCrudRepository;
-import safide.erp.sale.infrastructure.adapter.input.ISaleInvoHeadCrudRepository;
+import safide.erp.sale.infrastructure.entity.SaleInvoDetaEntity;
 import safide.erp.sale.infrastructure.entity.SaleInvoHeadEntity;
 import safide.erp.sale.infrastructure.mapper.SaleInvoHeadMapper;
-import safide.erp.sale.infrastructure.mapper.SaleInvoHeadMapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class SaleInvoHeadCrudRepositoryImpl implements ISaleInvoHeadRepository {
 
     private final ISaleInvoHeadCrudRepository iSaleInvoHeadCrudRepository;
     private final SaleInvoHeadMapper saleInvoHeadMapper;
+    private final IGeneTaxeHeadRepository geneTaxeHeadRepository;
 
-    public SaleInvoHeadCrudRepositoryImpl(ISaleInvoHeadCrudRepository iSaleInvoHeadCrudRepository, SaleInvoHeadMapper saleInvoHeadMapper) {
+    public SaleInvoHeadCrudRepositoryImpl(
+            ISaleInvoHeadCrudRepository iSaleInvoHeadCrudRepository,
+            SaleInvoHeadMapper saleInvoHeadMapper,
+            IGeneTaxeHeadRepository geneTaxeHeadRepository
+    ) {
         this.iSaleInvoHeadCrudRepository = iSaleInvoHeadCrudRepository;
         this.saleInvoHeadMapper = saleInvoHeadMapper;
+        this.geneTaxeHeadRepository = geneTaxeHeadRepository;
     }
 
     @Override
     @Transactional
     public SaleInvoHead save(SaleInvoHead saleinvohead) {
         try {
+            // Obtener la lista de impuestos disponibles
+            List<GeneTaxeHead> taxList = new ArrayList<>();
+            geneTaxeHeadRepository.findAll().forEach(taxList::add);  // Convertir Iterable a List
+
+            // Pasar la lista de impuestos a cada detalle para que calcule el IVA
+            saleinvohead.actualizarTotales(taxList);
+
+            // Convertir la entidad de dominio SaleInvoHead a su correspondiente entidad JPA
             SaleInvoHeadEntity saleinvoheadEntity = saleInvoHeadMapper.toEntity(saleinvohead);
-            saleinvoheadEntity.getSaleInvoDetas().forEach(
-                    saleInvoDetaEntity ->  saleInvoDetaEntity.setSaleInvoHeadEntity(saleinvoheadEntity)
-            );
+
+            // Establecer la relación entre los detalles y la cabecera (solo con entidades JPA)
+            for (SaleInvoDetaEntity detalleEntity : saleinvoheadEntity.getSaleInvoDetas()) {
+                // Aquí solo estamos configurando la relación entre el detalle y la cabecera (no los impuestos aún)
+                detalleEntity.setSaleInvoHeadEntity(saleinvoheadEntity);
+            }
+
+            // Guardamos la cabecera de la factura, junto con los detalles e impuestos asociados
             return saleInvoHeadMapper.toDomain(iSaleInvoHeadCrudRepository.save(saleinvoheadEntity));
+
         } catch (DataIntegrityViolationException ex) {
             throw new GeneErrorResponse("DATA_INTEGRITY_VIOLATION",
                     "Error de integridad de datos al guardar cabecera de factura " + ex.getCause(), ex);
         } catch (DataAccessException ex) {
-            throw new GeneErrorResponse("DATABASE_ERROR", "Error al guardar cabecera de factura SaleInvoHead " + ex.getMessage(), ex);
+            throw new GeneErrorResponse("DATABASE_ERROR",
+                    "Error al guardar cabecera de factura SaleInvoHead " + ex.getMessage(), ex);
         }
     }
 
