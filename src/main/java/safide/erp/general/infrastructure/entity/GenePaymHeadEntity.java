@@ -30,6 +30,6 @@ public class GenePaymHeadEntity {
     @Column(name = "alterna_gepahe", length = 3)
     private String alterna_gepahe;
 
-    @OneToMany(mappedBy = "genePaymHead", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<GenePaymDetaEntity> genePaymDeta;
+    @OneToMany(mappedBy = "genePaymHeadEntity", cascade = CascadeType.PERSIST)
+    private List<GenePaymDetaEntity> genePaymDetas;
 }

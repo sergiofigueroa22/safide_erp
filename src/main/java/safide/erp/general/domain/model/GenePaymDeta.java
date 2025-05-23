@@ -15,4 +15,5 @@ public class GenePaymDeta {
     private Integer bank_gepade;
     private String alterna_gepade;
     private String alternb_gepade;
+    private Integer id_gepahe;
 }

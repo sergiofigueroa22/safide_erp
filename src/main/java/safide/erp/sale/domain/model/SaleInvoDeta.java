@@ -53,10 +53,7 @@ public class SaleInvoDeta {
                 .multiply(quantia_sainde)
                 .setScale(FINAL_SCALE, ROUND_MODE);
 
-        // Calcular el IVA de los impuestos asociados
         calcularIVA(taxList);
-
-
     }
 
     // Método para calcular el IVA según el porcentaje del impuesto asociado
@@ -68,10 +65,8 @@ public class SaleInvoDeta {
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("Impuesto no encontrado"));
 
-            // Obtener el porcentaje de IVA
             BigDecimal ivaPercent = geneTaxeHead.getPercent_getahe();
 
-            // Calcular el valor del IVA
             if (ivaPercent != null && ivaPercent.compareTo(BigDecimal.ZERO) > 0) {
                 this.valtaxe_sainde = value_sainde.multiply(ivaPercent.divide(BigDecimal.valueOf(100), FINAL_SCALE, ROUND_MODE))
                         .setScale(FINAL_SCALE, ROUND_MODE);
@@ -83,7 +78,6 @@ public class SaleInvoDeta {
         }
     }
 
-    // Métodos de validación
     private void validarDatosParaCalculo() {
         if (pricea_sainde == null || quantia_sainde == null) {
             throw new IllegalStateException("Precio base y cantidad son requeridos");

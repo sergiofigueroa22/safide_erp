@@ -11,6 +11,9 @@ import safide.erp.generic.infrastructure.mapper.GeneErpMapper;
 @Mapper(componentModel = "spring")
 public interface GenePaymDetaMapper extends GeneErpMapper<GenePaymDeta, GenePaymDetaEntity> {
     @Mappings({
+            @Mapping(source = "genePaymHeadEntity.id", target = "id_gepahe"),
+            @Mapping(source = "id_macohe", target = "id_macohe"),
+            @Mapping(source = "id_macode", target = "id_macode"),
             @Mapping(source = "name_gepade", target = "name_gepade"),
             @Mapping(source = "bank_gepade", target = "bank_gepade"),
             @Mapping(source = "alterna_gepade", target = "alterna_gepade"),

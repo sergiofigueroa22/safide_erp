@@ -36,9 +36,9 @@ public class GenePaymDetaEntity {
     @Column(name = "alternb_gepade", length = 3)
     private String alternb_gepade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_gepahe", nullable = false)
-    private GenePaymHeadEntity genePaymHead;
+    @ManyToOne()
+    @JoinColumn(name = "id_gepahe")
+    private GenePaymHeadEntity genePaymHeadEntity;
 
 
 }
